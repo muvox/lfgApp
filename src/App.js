@@ -1,15 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Loading } from './components/common/';
+import Auth from './screens/Auth';
+import LoggedIn from './screens/LoggedIn';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
+export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      jwt: '',
+    }
   }
-}
+
+  render() {
+    if(!this.state.jwt) {
+      return (
+        <Auth />
+      );
+    } esle if(this.state.jwt) {
+      return (
+        <LoggedIn />
+      )
+    }
+  }
+
 
 const styles = StyleSheet.create({
   container: {

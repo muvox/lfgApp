@@ -1,0 +1,6 @@
+{
+"lookupPaths": [
+"node_modules/react-toolbox/src/components/**/*.js",
+"lfgApp/src/components"
+]
+}
