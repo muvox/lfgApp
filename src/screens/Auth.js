@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View } from 'ract-native';
+import { View } from 'react-native';
 import { Login, Registration } from '../components';
 
 export default class Auth extends Component {

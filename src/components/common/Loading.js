@@ -12,7 +12,7 @@ const Loading = () => {
 
 const styles = {
   spinnerContainer: {
-    flex: -1;
+    flex: -1,
     marginTop: 12,
     marginBottom: 12
   }
