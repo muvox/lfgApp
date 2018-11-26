@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Loading } from './components/common/';
+import Loading from './components/common/';
 import Auth from './screens/Auth';
 import LoggedIn from './screens/LoggedIn';
 
-export default class Main extends Component {
+export default class Main extends Component<{}> {
   constructor() {
     super();
     this.state = {

@@ -23,7 +23,7 @@ export default class Auth extends Component {
       return(
         <Registration authSwitch={this.authSwitch}/>
       );
-    }else {
+    } else {
       return(
         <Login authSwitch={this.authSwitch}/>
       );

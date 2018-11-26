@@ -35,3 +35,5 @@ const style = {
     marginBottom: 5
   }
 };
+
+export { Button };
