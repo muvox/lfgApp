@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Login, Registration } from '../components';
+import { Login, Registration } from '../components';
 
-export default class Auth extends Component {
+export default class Auth extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -33,7 +33,7 @@ export default class Auth extends Component {
   render() {
     return(
       <View style={styles.container}>
-      {this.whichForm()}
+        {this.whichForm()}
       </View>
     );
   }
@@ -41,7 +41,7 @@ export default class Auth extends Component {
 
 const styles = {
   container: {
-    flex:1,
+    flex: 1,
     justifyContent: 'center',
     alignItems:'center'
   }

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { View, Text } from "react-native";
 import { Input, TextLink, Button, Loading } from "./common";
 
-class Registration extends Component {
+class Registration extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -68,10 +68,11 @@ class Registration extends Component {
             :
             <Loading size={"large"} />
           }
+          <TextLink onPress={this.props.authSwitch}>
+            Already have an account? Log in!
+          </TextLink>
         </View>
-        <TextLink onPress={this.props.authSwitch}>
-          Already have an account? Log in!
-        </TextLink>
+
       </Fragment>
     );
   }
