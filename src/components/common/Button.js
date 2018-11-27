@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
-const Button = ({onpress, children }) => {
+const Button = ({onPress, children }) => {
   const { button, text } = styles;
   return (
     <View style={{flexDirection: 'row'}}>
@@ -14,7 +14,7 @@ const Button = ({onpress, children }) => {
   );
 };
 
-const style = {
+const styles = {
   text: {
     alignSelf: 'center',
     color: 'white',

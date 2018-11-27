@@ -21,6 +21,12 @@ class Registration extends Component {
     return (
       <View style={form}>
         <View style={section}>
+        <Input
+              placeholder="user@email.com"
+              label="Email"
+              value={email}
+              onChangeText={email => this.setState({ email })}
+            />
 
         </View>
 
