@@ -1,4 +1,4 @@
-import React, { Component, Framgent } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Text, View } from 'react-native';
 import { Input, TextLink, Loading, Button } from './common';
 
@@ -14,13 +14,18 @@ class Login extends Component {
   }
 
   render(){
-    const { email, password, error, loading } = this.state;
+    const {
+      email,
+      password,
+      error,
+      loading
+    } = this.state;
     const { form, section, errorTextStyle } = styles;
 
     return (
-      <Framgent>
+      <Fragment>
         <View style={form}>
-          <View stlye={section}>
+<View style={section}>
             <Input
               placeholder="user@email.com"
               label="Email"
@@ -53,12 +58,31 @@ class Login extends Component {
             <TextLink onPress={this.props.authSwitch}>
               Don't have an account? Register!
             </TextLink>
-          </View>
 
 
-          </Framgent>
+</View>
+          </Fragment>
     )
   }
 }
+
+const styles = {
+  form: {
+    width: "100%",
+    borderTopWidth: 1,
+    borderColor: "#ddd"
+  },
+  section: {
+    flexDirection: "row",
+    borderBottomWidth: 1,
+    backgroundColor: "#fff",
+    borderColor: "#ddd"
+  },
+  errorTextStyle: {
+    alignSelf: "center",
+    fontSize: 18,
+    color: "red"
+  }
+};
 
 export { Login };
