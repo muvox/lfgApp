@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TextInput } from "react-native";
 import { Input, TextLink, Button, Loading } from './common';
 import axios from 'axios';
 import deviceStorage from '../services/deviceStorage';
@@ -7,36 +7,35 @@ import deviceStorage from '../services/deviceStorage';
 class Registration extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userName: "",
-      password: "",
-      password_confirmation: "",
-      error: "",
-      loading: false
-    };
+    this.state = { username: "", password: "", password_confirmation: "", error: "", loading: false};
+
   }
 
-  registerUser(){
-    const { userName, password, password_confirmation} = this.state;
-
+  registerUser() {
+    console.log('starting the register method');
+    const { username, password, error, loading } = this.state;
     this.setState({ error: '', loading: true});
 
-    axops.post("http://localhost:8080/users/sign-up", {
-      user: {
-        userName : userName,
-        password : password
-      }
-    },)
+    console.log('const and state set');
+
+    const user = {
+          name: this.state.username,
+          password: this.state.password
+        };
+
+    console.log(user);
+
+    axios.post(`http://lookingforgamer.herokuapp.com/users/sign-up`, { user })
     .then((response) => {
-      //jwt response here
+      console.log(response);
     })
     .catch((error) => {
-      //handle errors here
+      console.log(error);
     });
   }
 
   render() {
-    const { userName, password, password_confirmation, error, loading } = this.state;
+    const { username, password, error, loading } = this.state;
     const { form, section, errorTextStyle } = styles;
 
     return (
@@ -45,9 +44,9 @@ class Registration extends React.Component {
           <View style={section}>
             <Input
               placeholder="Username"
-              label="userName"
-              value={userName}
-              onChangeText={userName => this.setState({ userName })}
+              label="Username"
+              value={username}
+              onChangeText={(username) => this.setState({ username })}
             />
           </View>
 
@@ -57,32 +56,22 @@ class Registration extends React.Component {
               placeholder="password"
               label="Password"
               value={password}
-              onChangeText={password => this.setState({ password })}
+              onChangeText={(password) => this.setState({ password })}
             />
           </View>
-          <View style={section}>
-            <Input
-              secureTextEntry
-              placeholder="confirm password"
-              label="Confirm Password"
-              value={password_confirmation}
-              onChangeText={password_confirmation =>
-                this.setState({ password_confirmation })
-              }
-            />
-          </View>
+
 
           <Text style={errorTextStyle}>
           {error}
           </Text>
 
           {!loading ?
-            <Button>
+            <Button onPress={this.registerUser.bind(this)}>
             Register
             </Button>
             :
-            <Loading size={"large"} />
-          }
+            <Loading size={'large'} />}
+
           <Button onPress={this.props.authSwitch}>
           Already have an account? Log in!
           </Button>
