@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import { Text, View } from 'react-native';
 import { Input, TextLink, Loading, Button } from './common';
+import axios from 'axios';
 
 class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
-      email: '',
+      userName: '',
       password: '',
       error: '',
       loading: false
@@ -15,7 +16,7 @@ class Login extends Component {
 
   render(){
     const {
-      email,
+      userName,
       password,
       error,
       loading
@@ -25,12 +26,12 @@ class Login extends Component {
     return (
       <Fragment>
         <View style={form}>
-<View style={section}>
+          <View style={section}>
             <Input
-              placeholder="user@email.com"
-              label="Email"
-              value={email}
-              onChangeText={email => this.setState({ email })}
+              placeholder="username"
+              label="Username"
+              value={userName}
+              onChangeText={userName => this.setState({ userName })}
             />
           </View>
 
@@ -54,13 +55,12 @@ class Login extends Component {
             </Button>
             :
             <Loading size={'large'} />}
+            <Button onPress={this.props.authSwitch}>
+            Don't have an account? Register!
+            </Button>
 
-            <TextLink onPress={this.props.authSwitch}>
-              Don't have an account? Register!
-            </TextLink>
 
-
-</View>
+            </View>
           </Fragment>
     )
   }
