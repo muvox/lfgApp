@@ -19,13 +19,19 @@ class Registration extends React.Component {
     console.log('const and state set');
 
     const user = {
-          name: this.state.username,
+          username: this.state.username,
           password: this.state.password
         };
 
     console.log(user);
 
-    axios.post(`http://lookingforgamer.herokuapp.com/users/sign-up`, { user })
+    //localhost address: http://192.168.1.106:8080/users/sign-up
+
+    axios.post(`http://lookingforgamer.herokuapp.com/users/sign-up`,
+      user,
+      {headers: {
+          'Content-Type': 'application/json'
+      }})
     .then((response) => {
       console.log(response);
     })
