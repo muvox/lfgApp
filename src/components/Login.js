@@ -1,27 +1,71 @@
 import React, { Component, Fragment } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Keyboard} from 'react-native';
 import { Input, TextLink, Loading, Button } from './common';
 import axios from 'axios';
+
+import Toast, {DURATION} from 'react-native-easy-toast';
+
 
 class Login extends Component {
   constructor(props){
     super(props);
     this.state = {
-      userName: '',
+      username: '',
       password: '',
       error: '',
       loading: false
     };
+
+    this.loginUser = this.loginUser.bind(this);
+  }
+
+  isEmpty(str){
+    return (!str || 0 === str.length);
+  }
+
+  loginUser(){
+    const {username, password} = this.state;
+
+    this.setState({error: '', loading: true});
+
+    Keyboard.dismiss();
+
+    const user = {
+          username: this.state.username,
+          password: this.state.password
+        };
+
+    if(this.isEmpty(this.state.username)||this.isEmpty(this.state.password)){
+        this.refs.errorToast.show('Username and/or password field cannot be empty!');
+        this.setState({loading: false});
+        return;
+      }
+
+    axios.post('http://lookingforgamer.herokuapp.com/login', user)
+      .then((response) => {
+        console.log(response);
+        console.log(response.headers.authorization);
+        this.props.newJWT(response.headers.authorization);
+        this.setState({loading: false});
+        this.refs.successToast.show('Login success.'
+        // , 500, () => {
+          // this.props.authSwitch()
+        // }
+      );
+      })
+      .catch((error)=>{
+        console.log(error);
+      });
   }
 
   render(){
     const {
-      userName,
+      username,
       password,
       error,
       loading
     } = this.state;
-    const { form, section, errorTextStyle } = styles;
+    const { toastSuccess, toastError, form, section, errorTextStyle } = styles;
 
     return (
       <Fragment>
@@ -30,8 +74,8 @@ class Login extends Component {
             <Input
               placeholder="username"
               label="Username"
-              value={userName}
-              onChangeText={userName => this.setState({ userName })}
+              value={username}
+              onChangeText={username => this.setState({ username })}
             />
           </View>
 
@@ -50,7 +94,7 @@ class Login extends Component {
           </Text>
 
           {!loading ?
-            <Button>
+            <Button onPress={this.loginUser.bind(this)}>
             Login
             </Button>
             :
@@ -61,12 +105,23 @@ class Login extends Component {
 
 
             </View>
+
+            <Toast ref="successToast" style={toastSuccess}/>
+            <Toast ref="errorToast" style={toastError}/>
           </Fragment>
     )
   }
 }
 
 const styles = {
+  toastSuccess: {
+  backgroundColor: '#00FF00',
+  borderColor: '#b8ecdf'
+  },
+  toastError:{
+  backgroundColor: '#FF0000',
+  borderColor: '#f8cdc8'
+ },
   form: {
     width: "100%",
     borderTopWidth: 1,

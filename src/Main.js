@@ -9,12 +9,18 @@ export default class Main extends React.Component {
     this.state = {
       jwt: '',
     }
+
+    this.newJWT = this.newJWT.bind(this);
+  }
+
+  newJWT(jwt){
+    this.setState({ jwt:jwt});
   }
 
   render() {
     if(!this.state.jwt) {
       return (
-        <Auth />
+        <Auth newJWT={this.newJWT}/>
       );
     } else if(this.state.jwt) {
       return (

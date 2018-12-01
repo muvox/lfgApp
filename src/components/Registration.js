@@ -34,7 +34,7 @@ class Registration extends React.Component {
     if(this.isEmpty(this.state.username)||this.isEmpty(this.state.password))
       {
         this.refs.errorToast.show('Username and/or password field cannot be empty!');
-        this.setState({loading: false});
+        this.setState({loading: false, error: 'Please e'});
         return;
       }
     //localhost address: http://192.168.1.106:8080/users/sign-up
@@ -50,7 +50,9 @@ class Registration extends React.Component {
       if (response.data.includes("Error")){
         this.refs.errorToast.show('Username already taken!');
       }else{
-      this.refs.successToast.show('Registration succesful, please log in.');
+      this.refs.successToast.show('Registration succesful, please log in.', 500, () => {
+        this.props.authSwitch()
+      });
       }
       this.setState({loading: false});
 
@@ -58,7 +60,15 @@ class Registration extends React.Component {
     .catch((error) => {
       console.log(error);
       this.refs.errorToast.show('Something went wrong!');
+      this.onRegistrationFail();
 
+    });
+  }
+
+  onRegistrationFail() {
+    this.setState({
+      error: 'Registration Failed',
+      loading: false
     });
   }
 
