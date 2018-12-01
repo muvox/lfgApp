@@ -10,6 +10,11 @@ class Registration extends React.Component {
     super(props);
     this.state = { username: "", password: "", password_confirmation: "", error: "", loading: false};
 
+
+  }
+
+  isEmpty(str){
+    return (!str || 0 === str.length);
   }
 
   registerUser() {
@@ -26,9 +31,15 @@ class Registration extends React.Component {
 
     console.log(user);
 
+    if(this.isEmpty(this.state.username)||this.isEmpty(this.state.password))
+      {
+        this.refs.errorToast.show('Username and/or password field cannot be empty!');
+        this.setState({loading: false});
+        return;
+      }
     //localhost address: http://192.168.1.106:8080/users/sign-up
     //deployment address: http://lookingforgamer.herokuapp.com/users/sign-up
-    axios.post(`http://192.168.1.106:8080/users/sign-up`,
+    axios.post(`http://lookingforgamer.herokuapp.com/users/sign-up`,
       user,
       {headers: {
           'Content-Type': 'application/json'
@@ -36,8 +47,11 @@ class Registration extends React.Component {
     .then((response) => {
       console.log(response);
       console.log(response.data);
-      //TODO: käy läpi taken username tässä, laastarifiksillä
+      if (response.data.includes("Error")){
+        this.refs.errorToast.show('Username already taken!');
+      }else{
       this.refs.successToast.show('Registration succesful, please log in.');
+      }
       this.setState({loading: false});
 
     })
@@ -57,7 +71,7 @@ class Registration extends React.Component {
         <View style={form}>
           <View style={section}>
             <Input
-              placeholder="Username"
+              placeholder="username"
               label="Username"
               value={username}
               onChangeText={(username) => this.setState({ username })}
@@ -95,7 +109,6 @@ class Registration extends React.Component {
 
         <Toast ref="successToast" style={toastSuccess}/>
         <Toast ref="errorToast" style={toastError}/>
-
       </Fragment>
     );
   }
@@ -103,11 +116,12 @@ class Registration extends React.Component {
 
 const styles = {
   toastSuccess: {
-  backgroundColor: '#ccf2e8',
+  backgroundColor: '#00FF00',
   borderColor: '#b8ecdf'
+
   },
   toastError:{
-  backgroundColor: '#fadbd8',
+  backgroundColor: '#FF0000',
   borderColor: '#f8cdc8'
  },
   form: {
