@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Login, Registration } from '../components';
 
-export default class Auth extends React.Component {
+export default class Auth extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -21,11 +21,11 @@ export default class Auth extends React.Component {
   whichForm() {
     if(!this.state.showLogin){
       return(
-        <Registration newJWT={this.props.newJWT} authSwitch={this.authSwitch}/>
+        <Registration newJWT={this.props.newJWT} authSwitch={this.authSwitch} />
       );
     } else {
       return(
-        <Login newJWT={this.props.newJWT} authSwitch={this.authSwitch}/>
+        <Login newJWT={this.props.newJWT} authSwitch={this.authSwitch} />
       );
     }
   }

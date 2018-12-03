@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Text, View, Keyboard} from 'react-native';
 import { Input, TextLink, Loading, Button } from './common';
 import axios from 'axios';
+import deviceStorage from '../services/deviceStorage'
 
 import Toast, {DURATION} from 'react-native-easy-toast';
 
@@ -46,16 +47,25 @@ class Login extends Component {
         console.log(response);
         console.log(response.headers.authorization);
         this.props.newJWT(response.headers.authorization);
+        deviceStorage.saveItem('id_token', response.data.authorization);
         this.setState({loading: false});
-        this.refs.successToast.show('Login success.'
+        this.refs.successToast.show('Login success.');
         // , 500, () => {
           // this.props.authSwitch()
         // }
-      );
+
       })
       .catch((error)=>{
         console.log(error);
+        this.onLoginFail();
       });
+  }
+
+  onLoginFail() {
+    this.setState({
+      error: 'Login Failed',
+      loading: false
+    });
   }
 
   render(){
