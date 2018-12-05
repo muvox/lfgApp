@@ -2,11 +2,13 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 
 const GameComponent = ({imageSource, title }) => {
+  const { gameIcon, text, gameCard, gameCardContainer } = styles;
   return (
-    <View style={{flexDirection: 'row'}}>
-      <TouchableOpacity style={button}>
-        <Image style={gameIcon} source={imageSource}/>
-        <Text style={title}>
+    <View style={gameCardContainer}>
+      <TouchableOpacity style={gameCard}>
+        <Image style={gameIcon} source={{uri: imageSource}}/>
+        <Text style={text}>
+        {title}
         </Text>
       </TouchableOpacity>
     </View>
@@ -14,6 +16,20 @@ const GameComponent = ({imageSource, title }) => {
 };
 
 const styles = {
+  gameCardContainer:{
+    flex:1,
+    justifyContent: 'center',
+    alignItems:'center',
+    backgroundColor: '#222222',
+    paddingBottom: 10,
+  },
+  gameCard:{
+    backgroundColor: '#444444',
+    width: '90%',
+    flexDirection: 'row',
+    borderRadius: 4,
+
+  },
   gameIcon: {
     width: 90,
     height: 90
@@ -23,19 +39,7 @@ const styles = {
     color: 'white',
     fontSize: 25,
     fontWeight: '700',
-    paddingTop: 10,
-    paddingBottom: 10
-  },
-  button: {
-    flex: 1,
-    borderWidth: 3,
-    borderColor: 'mediumpurple',
-    backgroundColor: "rebeccapurple",
-    borderRadius: 25,
-    marginTop: 5,
-    marginLeft: 50,
-    marginRight: 50,
-    marginBottom: 5
+    marginLeft: 10,
   }
 };
 

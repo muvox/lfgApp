@@ -66,7 +66,7 @@ testOutput(coverUrl){
           // <Text>{item.name}</Text>
           // </TouchableOpacity>
 
-        <GameComponent imageSource={{uri: 'http:'+item.coverUrl}} title={item.name} />
+        <GameComponent imageSource={'http:'+item.coverUrl} title={item.name} />
 
       }/>
 
@@ -82,6 +82,8 @@ testOutput(coverUrl){
 
 const styles = {
   container: {
+    paddingTop: 20,
+    paddingBottom: 20,
     flex:1,
     justifyContent: 'center'
   },
