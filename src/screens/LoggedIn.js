@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Button, Loading, GameComponent } from '../components/common';
 import axios from 'axios';
 
@@ -34,7 +34,9 @@ componentDidMount(){
     console.log(error);
   })
 }
-
+testOutput(coverUrl){
+  console.log(coverUrl);
+}
   deletePropsAndError(){
     this.props.deleteJWT;
     console.log('Deleting jwt');
@@ -59,8 +61,14 @@ componentDidMount(){
           data={this.state.data}
           keyExtractor={item => item.id}
           renderItem={({item}) =>
-        <GameComponent imageSource={item.coverUrl} title={item.name} />}
-          />
+          // <TouchableOpacity onPress={this.testOutput('http:'+item.coverUrl)}>
+          // <Image style={{width: 50, height: 50}} source={{uri: 'http:'+item.coverUrl}} />
+          // <Text>{item.name}</Text>
+          // </TouchableOpacity>
+
+        <GameComponent imageSource={{uri: 'http:'+item.coverUrl}} title={item.name} />
+
+      }/>
 
           </View>
           <Button>
