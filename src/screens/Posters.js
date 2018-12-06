@@ -51,7 +51,7 @@ render() {
   }else {
     return(
     <View>
-    <Text> lol </Text>
+    <Text> This is the poster screen, WIP </Text>
     </View>
   );
 }
