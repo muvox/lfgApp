@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 
-const GameComponent = ({imageSource, title }) => {
+const GameComponent = ({imageSource, title, onPress }) => {
   const { gameIcon, text, gameCard, gameCardContainer } = styles;
   return (
     <View style={gameCardContainer}>
-      <TouchableOpacity style={gameCard}>
+      <TouchableOpacity onPress={onPress} style={gameCard}>
         <Image style={gameIcon} source={{uri: imageSource}}/>
         <Text style={text}>
         {title}

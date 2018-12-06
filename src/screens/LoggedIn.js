@@ -15,7 +15,9 @@ export default class LoggedIn extends React.Component {
     }
   }
 
+
 componentDidMount(){
+
   const headers = {
     'Authorization': ''+this.props.jwt
   };
@@ -34,6 +36,10 @@ componentDidMount(){
     console.log(error);
   })
 }
+
+
+
+
 testOutput(coverUrl){
   console.log(coverUrl);
 }
@@ -41,6 +47,11 @@ testOutput(coverUrl){
     this.props.deleteJWT;
     console.log('Deleting jwt');
     console.log(this.props.jwt);
+  }
+
+  _onPressItem(gameId){
+    this.props.newGID(gameId);
+    console.log(gameId);
   }
 
   render() {
@@ -57,18 +68,10 @@ testOutput(coverUrl){
       return(
         <View style={container}>
           <View>
-          <FlatList
-          data={this.state.data}
-          keyExtractor={item => item.id}
-          renderItem={({item}) =>
-          // <TouchableOpacity onPress={this.testOutput('http:'+item.coverUrl)}>
-          // <Image style={{width: 50, height: 50}} source={{uri: 'http:'+item.coverUrl}} />
-          // <Text>{item.name}</Text>
-          // </TouchableOpacity>
+          <FlatList data={this.state.data} keyExtractor={item => item.id} renderItem={({item}) =>
 
-        <GameComponent imageSource={'http:'+item.coverUrl} title={item.name} />
-
-      }/>
+        <GameComponent onPress={() => this._onPressItem(item.id)} imageSource={'http:'+item.coverUrl} title={item.name} />
+        }/>
 
           </View>
           <Button>

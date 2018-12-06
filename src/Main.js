@@ -2,21 +2,25 @@ import React, {Component } from 'react';
 import { Loading } from './components/common/';
 import Auth from './screens/Auth';
 import LoggedIn from './screens/LoggedIn';
+import Posters from './screens/Posters';
 import deviceStorage from './services/deviceStorage';
+import { BackHandler } from 'react-native';
 
 export default class Main extends React.Component {
   constructor() {
     super();
     this.state = {
       jwt: '',
-      loading: true
+      loading: true,
+      gameId: ''
     }
-    let x: string = 123;
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     this.newJWT = this.newJWT.bind(this);
     this.deleteJWT = deviceStorage.deleteJWT.bind(this);
     this.loadJWT = deviceStorage.loadJWT.bind(this);
     this.loadJWT();
-  }
+    this.newGID = this.newGID.bind(this);
+    }
 
   newJWT(jwt){
     this.setState({
@@ -24,11 +28,46 @@ export default class Main extends React.Component {
     });
   }
 
+  newGID(gameId){
+    this.setState({
+      gameId: gameId
+    });
+  }
+
+
+  deleteGID(){
+    this.setState({
+      gameId: ''
+    });
+  }
+
+
+  handleBackButtonClick(){
+    this.setState({
+      gameId: ''
+    });
+    return(
+      <LoggedIn jwt={this.state.jwt} deleteJWT={this.deleteJWT} newGID={this.newGID} />
+    );
+  }
+
+  componentDidMount(){
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+
   render() {
     if (this.state.loading) {
       return (
         <Loading size={'large'}/>
        );
+    } else if(this.state.gameId) {
+      return (
+        <Posters gameId={this.state.gameId} deleteGID={this.deleteGID}/>
+      )
     } else if (!this.state.jwt) {
       return (
         <Auth newJWT={this.newJWT} />
@@ -36,7 +75,7 @@ export default class Main extends React.Component {
     } else if (this.state.jwt) {
       console.log(this.state.jwt);
       return (
-        <LoggedIn jwt={this.state.jwt} deleteJWT={this.deleteJWT} />
+        <LoggedIn jwt={this.state.jwt} deleteJWT={this.deleteJWT} newGID={this.newGID} />
       );
     }
   }
