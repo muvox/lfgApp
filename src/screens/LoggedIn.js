@@ -49,8 +49,9 @@ testOutput(coverUrl){
     console.log(this.props.jwt);
   }
 
-  _onPressItem(gameId){
+  _onPressItem(gameId,gameName){
     this.props.newGID(gameId);
+    this.props.gameName(gameName);
     console.log(gameId);
   }
 
@@ -66,17 +67,12 @@ testOutput(coverUrl){
       )
     }else {
       return(
-        <View style={container}>
-          <View>
-          <FlatList data={this.state.data} keyExtractor={item => item.id} renderItem={({item}) =>
+          <View style={container}>
+          <FlatList style={{marginTop:20, backgroundColor: "#fff"}} data={this.state.data} keyExtractor={ item => item.id.toString()} renderItem={({item}) =>
 
-        <GameComponent onPress={() => this._onPressItem(item.id)} imageSource={'http:'+item.coverUrl} title={item.name} />
+        <GameComponent onPress={() => this._onPressItem(item.id, item.name)} imageSource={'http:'+item.coverUrl} title={item.name} />
         }/>
 
-          </View>
-          <Button>
-          Log out
-          </Button>
           </View>
       );
     }
@@ -85,10 +81,9 @@ testOutput(coverUrl){
 
 const styles = {
   container: {
-    paddingTop: 20,
-    paddingBottom: 20,
     flex:1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#222222',
   },
   usernameText: {
     alignSelf: 'center',

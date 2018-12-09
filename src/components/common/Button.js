@@ -25,10 +25,8 @@ const styles = {
   },
   button: {
     flex: 1,
-    borderWidth: 3,
-    borderColor: 'mediumpurple',
-    backgroundColor: "rebeccapurple",
-    borderRadius: 25,
+    backgroundColor: "#009670",
+    borderRadius: 4,
     marginTop: 5,
     marginLeft: 50,
     marginRight: 50,

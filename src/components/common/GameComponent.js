@@ -32,14 +32,17 @@ const styles = {
   },
   gameIcon: {
     width: 90,
-    height: 90
+    height: 90,
+    borderRadius: 4,
   },
   text: {
+    flex:1,
     alignSelf: 'center',
     color: 'white',
     fontSize: 25,
     fontWeight: '700',
     marginLeft: 10,
+    flexWrap: 'wrap'
   }
 };
 

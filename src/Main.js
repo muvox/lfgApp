@@ -12,7 +12,8 @@ export default class Main extends React.Component {
     this.state = {
       jwt: '',
       loading: true,
-      gameId: ''
+      gameId: '',
+      gameName: '',
     }
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     this.newJWT = this.newJWT.bind(this);
@@ -20,7 +21,14 @@ export default class Main extends React.Component {
     this.loadJWT = deviceStorage.loadJWT.bind(this);
     this.loadJWT();
     this.newGID = this.newGID.bind(this);
+    this.gameName = this.gameName.bind(this);
     }
+
+  gameName(gameName){
+    this.setState({
+      gameName: gameName
+    });
+  }
 
   newJWT(jwt){
     this.setState({
@@ -44,10 +52,12 @@ export default class Main extends React.Component {
 
   handleBackButtonClick(){
     this.setState({
-      gameId: ''
+      gameId: '',
+      gameName: ''
     });
     return(
       <LoggedIn jwt={this.state.jwt} deleteJWT={this.deleteJWT} newGID={this.newGID} />
+
     );
   }
 
@@ -66,7 +76,7 @@ export default class Main extends React.Component {
        );
     } else if(this.state.gameId) {
       return (
-        <Posters gameId={this.state.gameId} deleteGID={this.deleteGID}/>
+        <Posters jwt={this.state.jwt} gameId={this.state.gameId} deleteGID={this.deleteGID} gameName={this.state.gameName}/>
       )
     } else if (!this.state.jwt) {
       return (
@@ -75,7 +85,7 @@ export default class Main extends React.Component {
     } else if (this.state.jwt) {
       console.log(this.state.jwt);
       return (
-        <LoggedIn jwt={this.state.jwt} deleteJWT={this.deleteJWT} newGID={this.newGID} />
+        <LoggedIn jwt={this.state.jwt} deleteJWT={this.deleteJWT} newGID={this.newGID} gameName={this.gameName} />
       );
     }
   }

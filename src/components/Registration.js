@@ -74,10 +74,11 @@ class Registration extends React.Component {
 
   render() {
     const { username, password, error, loading } = this.state;
-    const { toastSuccess, toastError, form, section, errorTextStyle } = styles;
+    const { toastSuccess, toastError, form, section, errorTextStyle, header } = styles;
 
     return (
       <Fragment>
+      <Text style={header}> Register </Text>
         <View style={form}>
           <View style={section}>
             <Input
@@ -134,21 +135,26 @@ const styles = {
   backgroundColor: '#FF0000',
   borderColor: '#f8cdc8'
  },
-  form: {
-    width: "100%",
-    borderTopWidth: 1,
-    borderColor: "#ddd"
-  },
+ form: {
+   width: "90%",
+   borderColor: "#ddd"
+ },
   section: {
     flexDirection: "row",
-    borderBottomWidth: 1,
     backgroundColor: "#fff",
-    borderColor: "#ddd"
+    borderColor: "#ddd",
+    borderRadius: 4,
+    marginBottom: 4,
   },
   errorTextStyle: {
     alignSelf: "center",
     fontSize: 18,
     color: "red"
+  },
+  header: {
+    fontSize: 35,
+    color: '#FFF',
+    marginBottom: 5
   }
 };
 

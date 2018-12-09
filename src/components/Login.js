@@ -49,11 +49,6 @@ class Login extends Component {
         this.props.newJWT(response.headers.authorization);
         deviceStorage.saveItem('id_token', response.data.authorization);
         this.setState({loading: false});
-        this.refs.successToast.show('Login success.');
-        // , 500, () => {
-          // this.props.authSwitch()
-        // }
-
       })
       .catch((error)=>{
         console.log(error);
@@ -75,13 +70,16 @@ class Login extends Component {
       error,
       loading
     } = this.state;
-    const { toastSuccess, toastError, form, section, errorTextStyle } = styles;
+    const { toastSuccess, toastError, form, section, errorTextStyle, input, header } = styles;
 
     return (
       <Fragment>
+      <Text style={header}> Login </Text>
+
         <View style={form}>
           <View style={section}>
             <Input
+              style={input}
               placeholder="username"
               label="Username"
               value={username}
@@ -91,6 +89,7 @@ class Login extends Component {
 
           <View style={section}>
             <Input
+              style={input}
               secureTextEntry
               placeholder="password"
               label="Password"
@@ -124,6 +123,9 @@ class Login extends Component {
 }
 
 const styles = {
+  input:{
+  width: '90%',
+  },
   toastSuccess: {
   backgroundColor: '#00FF00',
   borderColor: '#b8ecdf'
@@ -133,20 +135,25 @@ const styles = {
   borderColor: '#f8cdc8'
  },
   form: {
-    width: "100%",
-    borderTopWidth: 1,
+    width: "90%",
     borderColor: "#ddd"
   },
   section: {
     flexDirection: "row",
-    borderBottomWidth: 1,
     backgroundColor: "#fff",
-    borderColor: "#ddd"
+    borderColor: "#ddd",
+    borderRadius: 4,
+    marginBottom: 4,
   },
   errorTextStyle: {
     alignSelf: "center",
     fontSize: 18,
     color: "red"
+  },
+  header: {
+    fontSize: 35,
+    color: '#FFF',
+    marginBottom: 5
   }
 };
 

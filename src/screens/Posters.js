@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
-import { Button, Loading, GameComponent } from '../components/common';
+import { Button, Loading, PosterComponent} from '../components/common';
 import axios from 'axios';
 
 export default class Posters extends React.Component {
@@ -9,11 +9,13 @@ export default class Posters extends React.Component {
     this.state = {
     loading: true,
     error: '',
-    data:[]
+    data:[],
+    gameName: '',
     }
   }
 
 componentDidMount(){
+  this.setState({gameName: this.props.gameName});
   var url = 'http://lookingforgamer.herokuapp.com/api/posters/'+this.props.gameId;
   console.log(url);
   const headers = {
@@ -39,20 +41,27 @@ componentDidMount(){
 }
 
 render() {
-  const { container, errorText } = styles;
-  const { loading, username, error } = this.state;
+  const { container, errorText, gameNameText, posterCardContainer, posterCard, headerStyle, userText, platformText, grayText, detailStyle } = styles;
+  const { loading, username, error, gameName, data } = this.state;
 
   if(loading){
     return(
       <View style={container}>
         <Loading size={'large'}/>
       </View>
-    )
+    );
   }else {
     return(
-    <View>
-    <Text> This is the poster screen, WIP </Text>
+      // user={item.user} platform={item.platform} playerAmount={item.playerAmount} details={item.details}
+    <View style={container}>
+    <Text style={gameNameText}> {gameName} </Text>
+
+      <FlatList data={data} keyExtractor={item => item.id.toString()} renderItem={({item}) =>
+      <PosterComponent user={item.user} platform={item.platform} playerAmount={item.playerAmount} details={item.details} />
+
+      }/>
     </View>
+
   );
 }
 }
@@ -60,14 +69,20 @@ render() {
 
 const styles = {
   container: {
-    paddingTop: 20,
+    paddingTop: 50,
     paddingBottom: 20,
     flex:1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#222'
   },
   errorText: {
     alignSelf: 'center',
     fontSize: 18,
     color: 'red'
+  },
+  gameNameText: {
+    fontSize: 30,
+    color: '#fff',
+    marginLeft: 10,
   }
 };
