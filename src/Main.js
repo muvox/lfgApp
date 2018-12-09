@@ -51,6 +51,9 @@ export default class Main extends React.Component {
 
 
   handleBackButtonClick(){
+    if(!this.state.gameId){
+      this.setState({jwt:''});
+    }else {
     this.setState({
       gameId: '',
       gameName: ''
@@ -59,6 +62,7 @@ export default class Main extends React.Component {
       <LoggedIn jwt={this.state.jwt} deleteJWT={this.deleteJWT} newGID={this.newGID} />
 
     );
+  }
   }
 
   componentDidMount(){
